@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": false,
+    "outDir": "./lib/typescript",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@rexios/core": ["../core/lib/typescript"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["lib"]
+}

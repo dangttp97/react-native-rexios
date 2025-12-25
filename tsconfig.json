@@ -1,8 +1,13 @@
 {
   "compilerOptions": {
     "rootDir": ".",
+    "baseUrl": "./",
     "paths": {
-      "react-native-rexios": ["./src/index"]
+      "@rexios/core": ["packages/core/src"],
+      "@rexios/react": ["packages/react/src"],
+      "@rexios/zustand": ["packages/adapter-zustand/src"],
+      "@rexios/redux": ["packages/adapter-redux/src"],
+      "@rexios/middlewares": ["packages/middlewares/src"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

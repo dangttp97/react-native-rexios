@@ -1,19 +1,39 @@
 {
   "name": "react-native-rexios",
+  "private": false,
   "version": "1.0.0",
   "description": "Pure JS Redux, Axios and TanStack Query inspired network service",
-  "main": "./lib/module/index.js",
-  "types": "./lib/typescript/src/index.d.ts",
   "exports": {
-    ".": {
-      "source": "./src/index.tsx",
-      "types": "./lib/typescript/src/index.d.ts",
-      "default": "./lib/module/index.js"
+    "./core": {
+      "source": "./packages/core/src/index.ts",
+      "types": "./packages/core/lib/typescript/index.d.ts",
+      "default": "./packages/core/lib/module/index.js"
+    },
+    "./react": {
+      "source": "./packages/react/src/index.tsx",
+      "types": "./packages/react/lib/typescript/index.d.ts",
+      "default": "./packages/react/lib/module/index.js"
+    },
+    "./zustand": {
+      "source": "./packages/adapter-zustand/src/index.tsx",
+      "types": "./packages/adapter-zustand/lib/typescript/index.d.ts",
+      "default": "./packages/adapter-zustand/lib/module/index.js"
+    },
+    "./redux": {
+      "source": "./packages/adapter-redux/src/index.ts",
+      "types": "./packages/adapter-redux/lib/typescript/index.d.ts",
+      "default": "./packages/adapter-redux/lib/module/index.js"
+    },
+    "./middlewares": {
+      "source": "./packages/middlewares/src/index.ts",
+      "types": "./packages/middlewares/lib/typescript/index.d.ts",
+      "default": "./packages/middlewares/lib/module/index.js"
     },
     "./package.json": "./package.json"
   },
   "files": [
-    "src",
+    "packages/*/src",
+    "packages/*/lib",
     "lib",
     "android",
     "ios",
@@ -33,6 +53,7 @@
   ],
   "scripts": {
     "example": "yarn workspace react-native-rexios-example",
+    "build": "yarn workspace @rexios/core build && yarn workspace @rexios/react build && yarn workspace @rexios/zustand build && yarn workspace @rexios/redux build && yarn workspace @rexios/middlewares build",
     "clean": "del-cli lib",
     "prepare": "bob build",
     "typecheck": "tsc",
@@ -76,7 +97,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "jest": "^29.7.0",
     "lefthook": "^2.0.3",
-    "prettier": "^2.8.8",
+    "prettier": "^3.3.3",
     "react": "19.1.0",
     "react-native": "0.81.5",
     "react-native-builder-bob": "^0.40.13",
@@ -90,11 +111,12 @@
     "react-native": "*"
   },
   "workspaces": [
-    "example"
+    "example",
+    "packages/*"
   ],
   "packageManager": "yarn@4.11.0",
   "react-native-builder-bob": {
-    "source": "src",
+    "source": "packages/*/src",
     "output": "lib",
     "targets": [
       [

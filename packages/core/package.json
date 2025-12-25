@@ -1,0 +1,87 @@
+{
+  "name": "@rexios/core",
+  "private": false,
+  "version": "1.0.0",
+  "main": "./lib/module/index.js",
+  "types": "./lib/typescript/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./lib/typescript/index.d.ts",
+      "default": "./lib/module/index.js"
+    },
+    "./types": {
+      "source": "./src/types/index.ts",
+      "types": "./lib/typescript/types/index.d.ts",
+      "default": "./lib/module/index.js"
+    },
+    "./client": {
+      "source": "./src/client/index.ts",
+      "types": "./lib/typescript/client/index.d.ts",
+      "default": "./lib/module/index.js"
+    },
+    "./cache": {
+      "source": "./src/cache/index.ts",
+      "types": "./lib/typescript/cache/index.d.ts",
+      "default": "./lib/module/index.js"
+    }
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android",
+    "network",
+    "rexios"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dangttp97/react-native-rexios.git"
+  },
+  "author": "Trần Thành Phương Đăng <phuongdang012@gmail.com> (https://github.com/dangttp97)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dangttp97/react-native-rexios/issues"
+  },
+  "files": [
+    "src",
+    "lib",
+    "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties"
+  ],
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "module",
+        {
+          "esm": true,
+          "sourceMaps": false
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "./tsconfig.build.json",
+          "tsc": "../../node_modules/typescript/bin/tsc"
+        }
+      ]
+    ]
+  },
+  "scripts": {
+    "build": "bob build",
+    "clean": "del-cli lib",
+    "prepare": "bob build",
+    "typecheck": "tsc",
+    "test": "jest",
+    "release": "release-it --only-version",
+    "lint": "eslint \"**/*.{js,ts,tsx}\""
+  }
+}
