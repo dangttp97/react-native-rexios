@@ -18,8 +18,16 @@ export const createZustandStore = (): CacheStore<any> => {
           [key]: { ...s.cache[key]!, ...partial },
         },
       })),
-    subscribe: async (key: CacheKey, callback: () => void) =>
-      store.subscribe((s) => s.cache[key] && callback()),
+    subscribe: (key: CacheKey, callback: () => void) => {
+      let prev = store.getState().cache[key];
+      return store.subscribe((s) => {
+        const next = s.cache[key];
+        if (next !== prev) {
+          prev = next;
+          callback();
+        }
+      });
+    },
     clear: async () => store.setState({ cache: {} }),
   };
 };

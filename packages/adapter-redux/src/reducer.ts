@@ -10,12 +10,12 @@ const initialState: RexiosCacheState = { entries: {} };
 
 export const rexiosCacheActions = {
   setEntry: (key: string, entry: CacheEntry<any>) =>
-    ({ type: 'REXIOS_CACHE/SET', payload: { key, entry } } as const),
+    ({ type: 'REXIOS_CACHE/SET', payload: { key, entry } }) as const,
   patchEntry: (key: string, patch: Partial<CacheEntry<any>>) =>
-    ({ type: 'REXIOS_CACHE/PATCH', payload: { key, patch } } as const),
+    ({ type: 'REXIOS_CACHE/PATCH', payload: { key, patch } }) as const,
   removeEntry: (key: string) =>
-    ({ type: 'REXIOS_CACHE/REMOVE', payload: { key } } as const),
-  reset: () => ({ type: 'REXIOS_CACHE/RESET' } as const),
+    ({ type: 'REXIOS_CACHE/REMOVE', payload: { key } }) as const,
+  reset: () => ({ type: 'REXIOS_CACHE/RESET' }) as const,
 };
 
 type Action =

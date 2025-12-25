@@ -1,18 +1,11 @@
 import type { Store } from 'redux';
 import { rexiosCacheActions, REXIOS_CACHE_KEY } from './reducer';
-import type { CacheEntry } from '@rexios/core';
-
-export type CacheStore = {
-  get: (key: string) => CacheEntry<any> | undefined;
-  set: (key: string, entry: CacheEntry<any>) => void;
-  patch: (key: string, patch: Partial<CacheEntry<any>>) => void;
-  subscribe: (key: string, cb: () => void) => () => void;
-};
+import type { CacheEntry, CacheStore } from '@rexios/core';
 
 export function createReduxCacheStore(opts: {
   store: Store;
   reducerKey?: string;
-}): CacheStore {
+}): CacheStore<any> {
   const reducerKey = opts.reducerKey ?? REXIOS_CACHE_KEY;
   const store = opts.store;
 
@@ -20,13 +13,13 @@ export function createReduxCacheStore(opts: {
     state?.[reducerKey]?.entries?.[key];
 
   return {
-    get(key) {
+    async get(key) {
       return selectEntry(store.getState(), key);
     },
-    set(key, entry) {
+    async set(key, entry) {
       store.dispatch(rexiosCacheActions.setEntry(key, entry) as any);
     },
-    patch(key, patch) {
+    async patch(key, patch) {
       store.dispatch(rexiosCacheActions.patchEntry(key, patch) as any);
     },
     subscribe(key, cb) {
@@ -38,6 +31,9 @@ export function createReduxCacheStore(opts: {
           cb();
         }
       });
+    },
+    async clear() {
+      store.dispatch(rexiosCacheActions.reset() as any);
     },
   };
 }
