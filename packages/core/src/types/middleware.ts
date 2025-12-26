@@ -15,7 +15,7 @@ export type Middleware<T> = {
   before?: (ctx: MiddlewareContext<T>) => Promise<void>;
   after?: (
     ctx: MiddlewareContext<T>,
-    next?: (req: RequestOptions) => Promise<T>
+    next?: (req: RequestOptions) => Promise<T | Response>
   ) => Promise<T | void>;
   onError?: (ctx: MiddlewareContext<T>, error: any) => Promise<void>;
 };

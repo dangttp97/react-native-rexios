@@ -7,7 +7,7 @@ export const executeWithMiddlewares = async <T = any>(
   ctx: MiddlewareContext<T>,
   middlewares: Middleware<T>[],
   doRequest: RequestExecutor
-): Promise<T> => {
+): Promise<T | Response> => {
   try {
     for (const middleware of middlewares) {
       await middleware.before?.(ctx);
@@ -22,19 +22,14 @@ export const executeWithMiddlewares = async <T = any>(
         async (req: RequestOptions) => {
           const nextResponse = await doRequest({ ...ctx, ...req });
           ctx.response = nextResponse;
-          const parsedNext = (await nextResponse.json()) as T;
-          ctx.parsed = parsedNext;
-          return parsedNext;
+          return nextResponse;
         }
       );
       if (maybe !== undefined) {
         return maybe as T;
       }
     }
-
-    const parsed = (await ctx.response?.json()) as T;
-    ctx.parsed = parsed;
-    return parsed;
+    return ctx.response as Response;
   } catch (error) {
     for (const middleware of middlewares) {
       await middleware.onError?.(ctx, error);

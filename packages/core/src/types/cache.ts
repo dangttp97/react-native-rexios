@@ -1,8 +1,8 @@
+import type { Tag } from './tag';
+
 export type CacheKey = string;
 
 export type CacheStatus = 'idle' | 'loading' | 'success' | 'error';
-
-import type { Tag } from './tag';
 
 export type CacheEntry<T> = {
   status: CacheStatus;
@@ -25,4 +25,12 @@ export type CacheStore<T> = {
   subscribe: (key: CacheKey, callback: () => void) => () => void;
   ///Clear the cache
   clear: () => Promise<void>;
+};
+
+export type CachePolicy = {
+  cacheKey?: CacheKey;
+  stateTimeMs?: number;
+  cacheTimeMs?: number;
+  background?: boolean;
+  invalidateTags?: Tag[];
 };

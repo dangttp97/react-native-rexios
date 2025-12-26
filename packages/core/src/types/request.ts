@@ -7,6 +7,10 @@ export type Body = any;
 export type QueryParams = Record<string, any>;
 
 export type RequestOptions = {
+  /**
+   * Optional explicit cache/dedupe key; defaults to name+method+url+query+body hash
+   */
+  queryKey?: string;
   url: string;
   method: HttpMethod;
   headers?: Headers;
@@ -21,6 +25,9 @@ export type RequestOptions = {
   tags?: Tag[];
   version?: number;
   retry?: number | ((error: any, attempt: number) => boolean);
+  retryDelay?: number | ((attempt: number) => number);
+  responseType?: 'json' | 'text' | 'raw';
+  parser?: (response: Response) => Promise<any>;
   retryCount?: number;
 };
 
