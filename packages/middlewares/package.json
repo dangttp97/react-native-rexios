@@ -1,6 +1,5 @@
 {
   "name": "@rexios/middlewares",
-  "private": false,
   "version": "1.0.0",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/index.d.ts",
